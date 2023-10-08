@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gorilla/mux"
 	"net/http"
-	"github.com/yourusername/your_project/handlers"
+	"github.com/yilong100/GoApp/handlers"
 )
 
 func routes(router *mux.Router) {

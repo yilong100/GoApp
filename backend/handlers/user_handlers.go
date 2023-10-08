@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"github.com/gorilla/mux"
-	"github.com/yourusername/your_project/models"
-	"github.com/yourusername/your_project/db"
-	"github.com/yourusername/your_project/utils"
+	"github.com/yilong100/GoApp/models"
+	"github.com/yilong100/GoApp/db"
+	"github.com/yilong100/GoApp/utils"
 )
 
 // get all users
