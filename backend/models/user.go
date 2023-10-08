@@ -4,3 +4,7 @@ type user struct {
 	Age              int    `json: "age"`
 	DreamPlaceToLive string `json: "dreamplacetolive`
 }
+
+type ResponseObject struct {
+	Message string `json: message`
+}
