@@ -5,6 +5,7 @@ import (
 	"example/GoPractice/models"
 	"fmt"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -53,6 +54,39 @@ func ConnectToMongoDB() (*mongo.Client, error) {
 
 	fmt.Println("Connected to MongoDB!")
 	return client, nil
+}
+
+func GetAllData(client *mongo.Client, databaseName, collectionName string) ([]bson.M, error) {
+	// Access the specified database and collection
+	database := client.Database(databaseName)
+	collection := database.Collection(collectionName)
+
+	// Define an empty filter to match all documents
+	filter := bson.M{}
+
+	// Execute the query to find all documents
+	cursor, err := collection.Find(context.TODO(), filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.TODO())
+
+	var results []bson.M
+
+	// Iterate through the results and decode each document into a map
+	for cursor.Next(context.TODO()) {
+		var result bson.M
+		if err := cursor.Decode(&result); err != nil {
+			return nil, err
+		}
+		results = append(results, result)
+	}
+
+	if err := cursor.Err(); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }
 
 func InsertUserData(client *mongo.Client, userToInsert *models.User) error {
