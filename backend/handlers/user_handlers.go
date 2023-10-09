@@ -15,8 +15,21 @@ import (
 
 // get all users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+	// Establish a MongoDB connection
+	client, err := db.ConnectToMongoDB()
+	if err != nil {
+		http.Error(w, "Failed to connect to MongoDB", http.StatusBadGateway)
+		return
+	}
+
+	// Get all data using the established connection
+	allData, err := db.GetAllData(client, "mydb", "mycollection")
+	if err != nil {
+		http.Error(w, "Failed to retrieve data from database", http.StatusBadGateway)
+		return
+	}
 	// Marshal the array to JSON
-	jsonResponse, err := json.Marshal(models.Users)
+	jsonResponse, err := json.Marshal(allData)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
