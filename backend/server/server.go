@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// starts the server
+// starts the server and sets the routes
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
 	routes(router)

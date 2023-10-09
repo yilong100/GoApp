@@ -94,6 +94,18 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	//adding new user to users array
 	models.Users = append(models.Users, newUser)
 
-	db.AddToMongoDBDatabase(&newUser)
+	// Establish a MongoDB connection
+	client, err := db.ConnectToMongoDB()
+	if err != nil {
+		http.Error(w, "Failed to connect to MongoDB", http.StatusBadGateway)
+		return
+	}
+
+	// Insert user data using the established connection
+	err = db.InsertUserData(client, &newUser)
+	if err != nil {
+		http.Error(w, "Failed to append user to database", http.StatusBadGateway)
+		return
+	}
 
 }
