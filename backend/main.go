@@ -138,9 +138,10 @@
 package main
 
 import (
+	"example/GoPractice/server"
 	"net/http"
+
 	"github.com/rs/cors"
-	"github.com/yilong100/GoApp/server"
 )
 
 func main() {

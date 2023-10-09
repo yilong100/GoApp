@@ -2,15 +2,14 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
+
 	"github.com/gorilla/mux"
-	"github.com/yilong100/GoApp/models"
-	"github.com/yilong100/GoApp/db"
-	"github.com/yilong100/GoApp/utils"
 )
 
 // get all users
-func getUsers(w http.ResponseWriter, r *http.Request) {
+func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// Marshal the array to JSON
 	jsonResponse, err := json.Marshal(users)
 	if err != nil {
@@ -26,7 +25,7 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 // returns the user by id
-func userById(w http.ResponseWriter, r *http.Request) {
+func UserById(w http.ResponseWriter, r *http.Request) {
 	// extracts id url parameter
 	params := mux.Vars(r)
 	id := params["id"]
@@ -55,7 +54,7 @@ func userById(w http.ResponseWriter, r *http.Request) {
 }
 
 // helper function to find user with matching id
-func getUserById(id string) (*user, error) {
+func GetUserById(id string) (*user, error) {
 	for index, user := range users {
 		if user.ID == id {
 			return &users[index], nil
@@ -65,7 +64,7 @@ func getUserById(id string) (*user, error) {
 	return nil, errors.New("user not found")
 }
 
-func createUser(w http.ResponseWriter, r *http.Request) {
+func CreateUser(w http.ResponseWriter, r *http.Request) {
 	// Parse the JSON request body into a user object
 	var newUser user
 	decoder := json.NewDecoder(r.Body)
