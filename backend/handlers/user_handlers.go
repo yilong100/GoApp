@@ -1,3 +1,5 @@
+// Contains functions and business logic of application - similar to service layer in spring
+
 package handlers
 
 import (
@@ -5,6 +7,8 @@ import (
 	"errors"
 	"example/GoPractice/models"
 	"net/http"
+
+	"example/GoPractice/db"
 
 	"github.com/gorilla/mux"
 )
@@ -89,4 +93,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	//adding new user to users array
 	models.Users = append(models.Users, newUser)
+
+	db.AddToMongoDBDatabase(&newUser)
+
 }

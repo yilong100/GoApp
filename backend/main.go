@@ -144,6 +144,7 @@ import (
 	"github.com/rs/cors"
 )
 
+// starts the servers
 func main() {
 	router := server.NewRouter()
 
