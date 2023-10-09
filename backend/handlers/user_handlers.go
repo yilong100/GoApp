@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"example/GoPractice/models"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -11,7 +12,7 @@ import (
 // get all users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// Marshal the array to JSON
-	jsonResponse, err := json.Marshal(users)
+	jsonResponse, err := json.Marshal(models.Users)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -31,7 +32,7 @@ func UserById(w http.ResponseWriter, r *http.Request) {
 	id := params["id"]
 
 	// calling helper function to return user object
-	user, err := getUserById(id)
+	user, err := GetUserById(id)
 	//if not found throw error
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -54,10 +55,10 @@ func UserById(w http.ResponseWriter, r *http.Request) {
 }
 
 // helper function to find user with matching id
-func GetUserById(id string) (*user, error) {
-	for index, user := range users {
+func GetUserById(id string) (*models.User, error) {
+	for index, user := range models.Users {
 		if user.ID == id {
-			return &users[index], nil
+			return &models.Users[index], nil
 		}
 	}
 
@@ -66,7 +67,7 @@ func GetUserById(id string) (*user, error) {
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	// Parse the JSON request body into a user object
-	var newUser user
+	var newUser models.User
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&newUser); err != nil {
 		http.Error(w, "Invalid JSON request", http.StatusBadRequest)
@@ -74,7 +75,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Process the request
-	response := ResponseObject{
+	response := models.ResponseObject{
 		Message: "Welcome, " + newUser.Name + "!",
 	}
 
@@ -87,5 +88,5 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//adding new user to users array
-	users = append(users, newUser)
+	models.Users = append(models.Users, newUser)
 }
