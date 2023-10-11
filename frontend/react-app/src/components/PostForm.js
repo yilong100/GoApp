@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 // Define a functional component called PostForm
 function PostForm(props) {
     // Define the URL where you will send the POST request
-    const url = "http://localhost:8080/createUser"
+    // When Deployed, Change to VM's IP
+    const [url, setUrl] = useState("http://localhost:8080/createUser")
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({
@@ -13,6 +14,36 @@ function PostForm(props) {
         Age:"",
         DreamPlaceToLive:""
     })
+
+    useEffect(()=>{
+        getIP()
+    },[])
+
+    async function getIP(){
+        try {
+            const auth = new google.auth.GoogleAuth({
+            keyFile: '../../playground-s-11-f031326b-af7f40798cfa.json',
+            scopes: 'https://www.googleapis.com/auth/cloud-platform',
+            });
+    
+            const compute = google.compute({
+            version: 'v1',
+            auth,
+            });
+    
+            const instance = await compute.instances.get({
+            project: 'playground-s-11-f031326b',
+            zone: 'australia-southeast1-b',
+            instance: 'instance-1',
+            });
+    
+            let IP = instance.data.networkInterfaces[0].accessConfigs[0].natIP;
+            console.log(`Public IP Address: ${IP}`);
+            setUrl("http://" + IP + ":8080/createUser")
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     // Function to update the 'data' state when input fields change
     function handle(e) {

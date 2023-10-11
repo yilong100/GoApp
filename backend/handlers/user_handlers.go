@@ -96,6 +96,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		Message: "Welcome, " + newUser.Name + "!",
 	}
 
+	//Allow CORS here By * or specific origin
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	// Encode the response object to JSON and write it to the response writer
 	w.Header().Set("Content-Type", "application/json")
 	encoder := json.NewEncoder(w)
