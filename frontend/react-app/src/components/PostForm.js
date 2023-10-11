@@ -5,7 +5,7 @@ import Axios from 'axios';
 function PostForm(props) {
     // Define the URL where you will send the POST request
     // When Deployed, Change to VM's IP
-    const [url, setUrl] = useState("http://localhost:8080/createUser")
+    const [url, setUrl] = useState("http://34.133.94.172:8080/createUser")
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({
