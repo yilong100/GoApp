@@ -1,6 +1,4 @@
 #!/bin/bash
-$HOME=/root/
-cd
 sudo apt-get -y update
 sudo apt-get -y install pip
 sudo apt-get -y install git
@@ -19,9 +17,9 @@ echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 sudo systemctl start mongod
 sudo systemctl daemon-reload
 sudo systemctl enable mongod
-cd
 git clone https://github.com/yilong100/GoApp.git
-cd GoApp/backend
+cd /
+cd GoApp/backend/
 go build
 ./GoPractice &
 cd
