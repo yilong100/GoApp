@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+const { google } = require('googleapis');
 
 // Define a functional component called PostForm
 function PostForm(props) {
