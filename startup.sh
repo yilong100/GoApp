@@ -1,12 +1,13 @@
 #!/bin/bash
-
-sudo apt update
+$HOME=/
+cd
+sudo apt-get update
 y
-sudo apt install pip
+sudo apt-get install pip
 y
-sudo apt install git
+sudo apt-get install git
 y
-sudo apt install golang
+sudo apt-get install golang
 y
 sudo apt-get install gnupg curl
 y
@@ -33,6 +34,6 @@ cd GoApp/backend
 go build
 ./GoPractice &
 cd
-cd GoApp/front-end/react-app
+cd GoApp/frontend/react-app/
 npm install
 npm start &
