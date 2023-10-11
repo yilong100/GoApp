@@ -1,24 +1,15 @@
 #!/bin/bash
-$HOME=/
+$HOME=/root/
 cd
-sudo apt-get update
-y
-sudo apt-get install pip
-y
-sudo apt-get install git
-y
-sudo apt-get install golang
-y
-sudo apt-get install gnupg curl
-y
+sudo apt-get -y update
+sudo apt-get -y install pip
+sudo apt-get -y install git
+sudo apt-get -y install golang
+sudo apt-get -y install gnupg curl
 curl -fsSL https://pgp.mongodb.com/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-y
 echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] http://repo.mongodb.org/apt/debian bullseye/mongodb-org/7.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-y
-sudo apt-get update
-y
+sudo apt-get -y update
 sudo apt-get install -y mongodb-org
-y
 echo "mongodb-org hold" | sudo dpkg --set-selections
 echo "mongodb-org-database hold" | sudo dpkg --set-selections
 echo "mongodb-org-server hold" | sudo dpkg --set-selections
