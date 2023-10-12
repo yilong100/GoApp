@@ -33,5 +33,6 @@ if [ ! -f /var/run/my_script_ran_before ]; then
     git clone https://github.com/yilong100/GoApp.git
     cd /
     cd GoApp/frontend/react-app/
+    npm install
     npm start &
 fi
