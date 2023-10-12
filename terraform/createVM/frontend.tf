@@ -1,7 +1,7 @@
 # This block defines a Google Compute Engine instance resource with the name "vm2-from-terraform"
 
-resource "google_compute_instance" "vm-from-terraform" {
-  name         = "vm4-from-terraform"
+resource "google_compute_instance" "frontend-vm-from-terraform" {
+  name         = "frontend-vm-from-terraform"
   machine_type = "e2-medium"
   zone         = "australia-southeast1-a"
 
@@ -25,6 +25,27 @@ resource "google_compute_instance" "vm-from-terraform" {
     }
   }
 
-  metadata_startup_script = "echo hi > /test.txt" # Specifies a startup script for the VM
+  //Specifies a startup script for vm
+  metadata_startup_script = <<-EOF
+#!/bin/bash
+if [ ! -f /var/run/my_script_ran_before ]; then
+    # Mark that the script has run before
+    sudo touch /var/run/my_script_ran_before
+
+    # Execute the desired script
+    cd /
+    apt-get -y update
+    apt-get -y install pip
+    apt-get -y install git
+    apt-get -y install npm
+    cd /
+    git clone https://github.com/yilong100/GoApp.git
+    cd /
+    cd GoApp/frontend/react-app/
+    npm install
+    npm start
+fi
+EOF
+
   # allow_stopping_for_update = true # This line is commented out but can be used to allow VM stopping during updates
 }
