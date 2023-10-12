@@ -1,7 +1,7 @@
 # This block defines a Google Compute Engine instance resource with the name "vm2-from-terraform"
 
 resource "google_compute_instance" "vm-from-terraform" {
-  name         = "vm2-from-terraform"
+  name         = "vm3-from-terraform"
   machine_type = "e2-medium"
   zone         = "australia-southeast1-a"
 
