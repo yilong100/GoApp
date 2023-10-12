@@ -14,5 +14,5 @@ if [ ! -f /var/run/my_script_ran_before ]; then
     cd /
     cd GoApp/frontend/react-app/
     npm install
-    npm run build
+    npm start
 fi
