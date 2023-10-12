@@ -5,7 +5,7 @@ resource "google_compute_instance" "vm-from-terraform" {
   machine_type = "e2-medium"
   zone         = "australia-southeast1-a"
 
-  # Block that defines the boot disk for the VM
+  # Block that defines the boot disk (OS) for the VM
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11" # Specifies the boot image
@@ -15,7 +15,7 @@ resource "google_compute_instance" "vm-from-terraform" {
     }
   }
 
-  # Block that defines the network interface for the VM
+  # Block that defines the network interface (how network is configurated) for the VM
   network_interface {
     network = "default" # Specifies the network to which the VM is connected.
   }
