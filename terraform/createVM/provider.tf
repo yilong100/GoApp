@@ -13,7 +13,7 @@ terraform {
 # change everytime
 # This section configures the Google Cloud provider for your infrastructure
 provider "google" {
-  project     = "playground-s-11-fdeff281" # Your Google Cloud Project ID
+  project     = "playground-s-11-62fe5fd8" # Your Google Cloud Project ID
   region      = "australia-southeast1"     # The desired region for resources
   zone        = "australia-southeast1-a"   # The specific zone within the region
   credentials = "./keys.json"              # Path to your service account credentials file
