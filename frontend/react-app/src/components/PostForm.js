@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { Button, TextField } from '@mui/material';
 
 // Define a functional component called PostForm
 function PostForm(props) {
     // Define the URL where you will send the POST request
     // When Deployed, Change to VM's IP
+<<<<<<< HEAD
     const [url, setUrl] = useState("http://34.87.225.219:8080/createUser")
+=======
+    const [url, setUrl] = useState("http://localhost:8080")
+    const [update, setUpdate] = useState(false)
+
+    // useEffect(()=>{
+    //     // Send a POST request to the specified URL with the 'data' object
+    //     Axios.get(url + "/users")
+    //     .then(response => {
+    //         // Log the response from the server to the console
+    //         console.log(response)
+    //     }).catch(e => {
+    //         console.log(e)
+    //     })
+    // }, [update])
+>>>>>>> 16d7f309ecb1073f755030a2420f5021f21775df
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({
@@ -32,7 +49,7 @@ function PostForm(props) {
         e.preventDefault(); // Prevent the default form submission behaviour
 
         // Send a POST request to the specified URL with the 'data' object
-        Axios.post(url, {
+        Axios.post(url + "/createUser", {
             ID: data.ID,
             Name: data.Name,
             Age: parseInt(data.Age, 10), //Parse Age as an integer
@@ -40,6 +57,7 @@ function PostForm(props) {
         })
         .then(response => {
             // Log the response from the server to the console
+            setUpdate(!update)
             console.log(response)
         })
 
@@ -48,21 +66,14 @@ function PostForm(props) {
 
     // Render the form component
     return(
-        <div>
-            <form onSubmit={(e) => submit(e)}>
-            <label>ID:</label><br></br>
-            <input id="ID" onChange={(e) => handle(e)} ></input><br></br>
-            <label>Name:</label><br></br>
-            <input id="Name" onChange={(e) => handle(e)}></input><br></br>
-            <label>Age:</label><br></br>
-            <input id="Age" onChange={(e) => handle(e)}></input><br></br>
-            <label>Dream Place to Live:</label><br></br>
-            <input id="DreamPlaceToLive" onChange={(e) => handle(e)}></input><br></br>
-            <p></p>
-            <button type="submit">Submit</button>
+        <form className='user-form' onSubmit={(e) => submit(e)}>
+            <TextField id="ID" label="ID" variant="outlined" onChange={(e) => handle(e)}/>
+            <TextField id="Name" label="Name" variant="outlined" onChange={(e) => handle(e)}/>
+            <TextField id="Age" label="Age" variant="outlined" onChange={(e) => handle(e)}/>
+            <TextField id="DreamPlaceToLive" label="Dream Place to Live" variant="outlined" onChange={(e) => handle(e)}/>
+            <Button type="submit"  variant="outlined">Submit</Button>
             <p class="user-data"></p>
-            </form>
-        </div>
+        </form>
     )
 
 }

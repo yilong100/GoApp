@@ -13,8 +13,22 @@ terraform {
 # change everytime
 # This section configures the Google Cloud provider for your infrastructure
 provider "google" {
-  project     = "playground-s-11-62fe5fd8" # Your Google Cloud Project ID
+  project     = "playground-s-11-48b6d5f9" # Your Google Cloud Project ID
   region      = "australia-southeast1"     # The desired region for resources
   zone        = "australia-southeast1-a"   # The specific zone within the region
   credentials = "./keys.json"              # Path to your service account credentials file
+}
+
+# Create a firewall rule
+resource "google_compute_firewall" "allow_ports_8080_3000" {
+  name    = "allow-ports-8080-3000"
+  network = "default" # Replace with your network name if not using the default network
+
+  # Specify the rules for allowing traffic
+  allow {
+    protocol = "tcp"
+    ports    = ["8080", "3000"]
+  }
+
+  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
 }
