@@ -2,7 +2,7 @@
 
 resource "google_compute_instance" "backend-vm-from-terraform" {
   name         = "backend-vm-from-terraform"
-  machine_type = "e2-medium"
+  machine_type = "e2-micro"
   zone         = "australia-southeast1-a"
 
   # Block that defines the boot disk (OS) for the VM
