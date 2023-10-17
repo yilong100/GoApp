@@ -33,22 +33,22 @@ resource "google_compute_firewall" "allow_ports_3000" {
   source_ranges = ["0.0.0.0/0"]  # Allow traffic from all IP addresses
 }
 
-resource "null_resource" "push_to_git" {
-  triggers = {
-    instance_id = google_compute_instance.frontend-vm-from-terraform.id
-  }
+# resource "null_resource" "push_to_git" {
+#   triggers = {
+#     instance_id = google_compute_instance.frontend-vm-from-terraform.id
+#   }
 
-  depends_on = [null_resource.save_frontend_ip_to_file]
+#   depends_on = [null_resource.save_frontend_ip_to_file]
 
-   provisioner "local-exec" {
-    command = "git add ."
-  }
+#    provisioner "local-exec" {
+#     command = "git add ."
+#   }
 
-  provisioner "local-exec" {
-    command = "git commit -m 'hi'"
-  }
+#   provisioner "local-exec" {
+#     command = "git commit -m 'hi'"
+#   }
 
-  provisioner "local-exec" {
-    command = "git push"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "git push"
+#   }
+# }
