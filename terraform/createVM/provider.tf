@@ -40,9 +40,15 @@ resource "null_resource" "push_to_git" {
 
   depends_on = [null_resource.save_frontend_ip_to_file]
 
+   provisioner "local-exec" {
+    command = "git add ."
+  }
+
   provisioner "local-exec" {
-    command = <<-EOT
-    cd D:\Documents\FDM\Up Skilling\GoApp && git add . && git commit -m "hi" && git push
-    EOT
+    command = "git commit -m 'hi'"
+  }
+
+  provisioner "local-exec" {
+    command = "git push"
   }
 }
