@@ -6,9 +6,6 @@ import { Button, TextField } from '@mui/material';
 function PostForm(props) {
     // Define the URL where you will send the POST request
     // When Deployed, Change to VM's IP
-<<<<<<< HEAD
-    const [url, setUrl] = useState("http://34.87.225.219:8080/createUser")
-=======
     const [url, setUrl] = useState("http://localhost:8080")
     const [update, setUpdate] = useState(false)
 
@@ -22,7 +19,6 @@ function PostForm(props) {
     //         console.log(e)
     //     })
     // }, [update])
->>>>>>> 16d7f309ecb1073f755030a2420f5021f21775df
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({

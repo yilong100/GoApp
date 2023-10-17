@@ -13,10 +13,10 @@ terraform {
 # change everytime
 # This section configures the Google Cloud provider for your infrastructure
 provider "google" {
-  project     = "impactful-post-402223"    # Your Google Cloud Project ID
-  region      = "australia-southeast1"     # The desired region for resources
-  zone        = "australia-southeast1-a"   # The specific zone within the region
-  credentials = "./keys.json"              # Path to your service account credentials file
+  project     = "rapid-chassis-402302"   # Your Google Cloud Project ID
+  region      = "australia-southeast1"   # The desired region for resources
+  zone        = "australia-southeast1-a" # The specific zone within the region
+  credentials = "./keys.json"            # Path to your service account credentials file
 }
 
 # Create a firewall rule
