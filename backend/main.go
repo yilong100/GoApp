@@ -139,17 +139,44 @@ package main
 
 import (
 	"example/GoPractice/server"
+	"io"
 	"net/http"
+
+	"fmt"
+	"os"
 
 	"github.com/rs/cors"
 )
 
 // starts the servers
 func main() {
+
+	filePath := "frontend-ip-address.txt"
+
+	// Open the file for reading
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println("Error opening the file:", err)
+		return
+	}
+	defer file.Close() // Close the file when done
+
+	// Read the contents of the file into a byte slice
+	fileContents, err := io.ReadAll(file)
+	if err != nil {
+		fmt.Println("Error reading the file:", err)
+		return
+	}
+
+	// Convert the byte slice to a string and print it
+	frontendIP := string(fileContents)
+	fmt.Println("File contents:")
+	fmt.Println(frontendIP)
+
 	router := server.NewRouter()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
+		AllowedOrigins: []string{frontendIP},
 		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders: []string{"Authorization", "Content-Type"},
 	})

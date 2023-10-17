@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Button, TextField } from '@mui/material';
+import apiUrl from "../backend-ip-address.js"
 
 // Define a functional component called PostForm
 function PostForm(props) {
+
     // Define the URL where you will send the POST request
     // When Deployed, Change to VM's IP
-    const [url, setUrl] = useState("http://localhost:8080")
+    const [url, setUrl] = useState("http://"+ apiUrl + ":8080")
     const [update, setUpdate] = useState(false)
+    console.log(apiUrl)
 
     // useEffect(()=>{
-    //     // Send a POST request to the specified URL with the 'data' object
+    //     // Send a Get request to receive all users
     //     Axios.get(url + "/users")
     //     .then(response => {
     //         // Log the response from the server to the console
