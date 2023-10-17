@@ -158,7 +158,6 @@ func main() {
 	scanner := bufio.NewScanner(f)
 	// Loop over all lines in the file and print them.
 	for scanner.Scan() {
-		line := scanner.Text()
 		frontendIP = scanner.Text()
 	}
 
