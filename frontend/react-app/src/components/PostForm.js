@@ -10,7 +10,6 @@ function PostForm(props) {
     // When Deployed, Change to VM's IP
     const [url, setUrl] = useState("http://"+ apiUrl + ":8080")
     const [update, setUpdate] = useState(false)
-    console.log(apiUrl)
 
     // useEffect(()=>{
     //     // Send a Get request to receive all users

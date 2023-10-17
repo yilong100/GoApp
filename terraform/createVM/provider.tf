@@ -41,8 +41,14 @@ resource "google_compute_firewall" "allow_ports_3000" {
 #   depends_on = [null_resource.save_frontend_ip_to_file]
 
 #   provisioner "local-exec" {
-#     command = <<-EOT
-#     cd D:\Documents\FDM\Up Skilling\GoApp && git add . && git commit -m "hi" && git push
-#     EOT
+#     command = "git add ."
+#   }
+
+#   provisioner "local-exec" {
+#     command = "git commit -m 'IP updated'"
+#   }
+
+#   provisioner "local-exec" {
+#     command = "git push"
 #   }
 # }
