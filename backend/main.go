@@ -164,7 +164,7 @@ func main() {
 	router := server.NewRouter()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://" + frontendIP + ":3000"},
+		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders: []string{"Authorization", "Content-Type"},
 	})
