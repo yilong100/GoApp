@@ -20,15 +20,29 @@ provider "google" {
 }
 
 # Create a firewall rule
-resource "google_compute_firewall" "allow_ports_8080_3000" {
-  name    = "allow-ports-8080-3000"
+resource "google_compute_firewall" "allow_ports_3000" {
+  name    = "allow-ports-3000"
   network = "default" # Replace with your network name if not using the default network
 
   # Specify the rules for allowing traffic
   allow {
     protocol = "tcp"
-    ports    = ["8080", "3000"]
+    ports    = ["3000"]
   }
 
   source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
 }
+
+# resource "null_resource" "push_to_git" {
+#   triggers = {
+#     instance_id = google_compute_instance.frontend-vm-from-terraform.id
+#   }
+
+#   depends_on = [null_resource.save_frontend_ip_to_file]
+
+#   provisioner "local-exec" {
+#     command = <<-EOT
+#     cd D:\Documents\FDM\Up Skilling\GoApp && git add . && git commit -m "hi" && git push
+#     EOT
+#   }
+# }
