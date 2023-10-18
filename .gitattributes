@@ -1,0 +1,8 @@
+# Declare files that will always have CRLF line endings on checkout.
+terraform/createVM/provider.tf text eol=crlf
+
+# Declare files that will always have LF line endings on checkout.
+terraform/createVM/backend.tf text eol=lf
+
+# Declare files that will always have LF line endings on checkout.
+terraform/createVM/frontend.tf text eol=lf
