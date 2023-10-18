@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"example/GoPractice/db"
+	"log"
 
 	"github.com/gorilla/mux"
 )
@@ -16,16 +17,17 @@ import (
 // get all users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// Establish a MongoDB connection
-	client, err := db.ConnectToMongoDB()
+	postgresdb, err := db.ConnectToPostgresCloudServerAndDB()
 	if err != nil {
-		http.Error(w, "Failed to connect to MongoDB", http.StatusBadGateway)
+		http.Error(w, "Failed to connect to Postgres", http.StatusBadGateway)
 		return
 	}
 
 	// Get all data using the established connection
-	allData, err := db.GetAllData(client, "mydb", "mycollection")
+	allData, err := db.GetAllData(postgresdb, "users")
 	if err != nil {
 		http.Error(w, "Failed to retrieve data from database", http.StatusBadGateway)
+		log.Println("Error:", err)
 		return
 	}
 	// Marshal the array to JSON
@@ -111,16 +113,17 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.Users = append(models.Users, newUser)
 
 	// Establish a MongoDB connection
-	client, err := db.ConnectToMongoDB()
+	postgresdb, err := db.ConnectToPostgresCloudServerAndDB()
 	if err != nil {
-		http.Error(w, "Failed to connect to MongoDB", http.StatusBadGateway)
+		http.Error(w, "Failed to connect to PostgresDB", http.StatusBadGateway)
 		return
 	}
 
 	// Insert user data using the established connection
-	err = db.InsertUserData(client, &newUser)
+	err = db.InsertUserData(postgresdb, &newUser)
 	if err != nil {
 		http.Error(w, "Failed to append user to database", http.StatusBadGateway)
+		log.Println("Error:", err)
 		return
 	}
 
