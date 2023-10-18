@@ -18,14 +18,17 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 		dbname   = "users"
 	)
 
+	// Create a connection string
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
 
+	// Open a database connection
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) //Exit the program if there's an error
 	}
 
+	// Ping the database to ensure the connection is working
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
@@ -35,17 +38,20 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 }
 
 func GetAllData(db *sql.DB, tableName string) ([]models.User, error) {
+	// SQL query to select all data from a specified table
 	query := fmt.Sprintf("SELECT * FROM %s", tableName)
-	rows, err := db.Query(query)
+	rows, err := db.Query(query) // Execute the query
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer rows.Close() // Close the result set when done
 
 	var data []models.User
 
+	// Iterate through the rows of the result set
 	for rows.Next() {
 		var item models.User
+		// Scan the row data into a struct
 		if err := rows.Scan(&item.ID, &item.Name, &item.Age, &item.DreamPlaceToLive); err != nil {
 			return nil, err
 		}
@@ -70,7 +76,7 @@ func InsertUserData(db *sql.DB, userToInsert *models.User) error {
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer stmt.Close() // Close the prepared statement when done
 
 	// Execute the prepared statement with the provided data
 	_, err = stmt.Exec(id, name, age, dreamplacetolive)
