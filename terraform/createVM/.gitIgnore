@@ -4,3 +4,4 @@ keys.json
 # Terraform state files
 *.tfstate
 *.tfstate.*
+.terraform.*
