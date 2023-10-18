@@ -61,7 +61,7 @@ EOF
 # Create a firewall rule
 resource "google_compute_firewall" "allow_ports_8080" {
   name    = "allow-ports-8080"
-  network = "default"  # Replace with your network name if not using the default network
+  network = "default" # Replace with your network name if not using the default network
 
   # Specify the rules for allowing traffic
   allow {
@@ -69,7 +69,7 @@ resource "google_compute_firewall" "allow_ports_8080" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["0.0.0.0/0"]  # Allow traffic from all IP addresses
+  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
 }
 
 # Output the assigned IP address

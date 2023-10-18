@@ -1,3 +1,4 @@
 # Terraform state files
 /terraform/createVM/*.tfstate
 /terraform/createVM/*.tfstate.*
+/terraform/*

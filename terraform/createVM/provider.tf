@@ -13,16 +13,16 @@ terraform {
 # change everytime
 # This section configures the Google Cloud provider for your infrastructure
 provider "google" {
-  project     = "impactful-post-402223"    # Your Google Cloud Project ID
-  region      = "australia-southeast1"     # The desired region for resources
-  zone        = "australia-southeast1-a"   # The specific zone within the region
-  credentials = "./keys.json"              # Path to your service account credentials file
+  project     = "rapid-chassis-402302"   # Your Google Cloud Project ID
+  region      = "australia-southeast1"   # The desired region for resources
+  zone        = "australia-southeast1-a" # The specific zone within the region
+  credentials = "./keys.json"            # Path to your service account credentials file
 }
 
 # Create a firewall rule
 resource "google_compute_firewall" "allow_ports_3000" {
   name    = "allow-ports-3000"
-  network = "default"  # Replace with your network name if not using the default network
+  network = "default" # Replace with your network name if not using the default network
 
   # Specify the rules for allowing traffic
   allow {
@@ -30,7 +30,7 @@ resource "google_compute_firewall" "allow_ports_3000" {
     ports    = ["3000"]
   }
 
-  source_ranges = ["0.0.0.0/0"]  # Allow traffic from all IP addresses
+  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
 }
 
 # resource "null_resource" "push_to_git" {
