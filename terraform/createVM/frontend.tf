@@ -76,16 +76,3 @@ resource "google_compute_firewall" "allow_ports_8080" {
 output "frontend-ip-address" {
   value = google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip
 }
-
-# Use local-exec provisioner to save the IP address to a file
-# resource "null_resource" "save_frontend_ip_to_file" {
-#   triggers = {
-#     instance_id = google_compute_instance.frontend-vm-from-terraform.id
-#   }
-
-#   depends_on = [google_compute_instance.frontend-vm-from-terraform]
-
-#   provisioner "local-exec" {
-#     command = "echo ${google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip} > ../../backend/frontend-ip-address.txt"
-#   }
-# }
