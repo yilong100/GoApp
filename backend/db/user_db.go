@@ -23,7 +23,7 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 	for scanner.Scan() {
 		databaseIP = scanner.Text()
 	}
-
+	println(databaseIP)
 	host := databaseIP
 	port := 5432
 	user := "postgres"
