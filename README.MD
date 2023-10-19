@@ -6,7 +6,10 @@ terraform apply -target=google_sql_database_instance.postgres_goApp
 
 Once the instance is fulling running go to:
 
-    GCP Console -> SQL -> go-app-db -> Users (on the sidebar) -> Change Password
+    GCP Console -> SQL -> go-app-db -> Users (on the sidebar) -> 
+    Create User: 
+    Username:   goApp 
+    Password:   goApp1234
 
 Go back to Overview, select 'Open Cloud Shell'
 
