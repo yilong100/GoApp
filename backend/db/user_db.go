@@ -26,8 +26,8 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 
 	host := databaseIP
 	port := 5432
-	user := "postgres"
-	password := "password"
+	user := "goApp"
+	password := "goApp1234"
 	dbname := "users"
 
 	// Create a connection string
