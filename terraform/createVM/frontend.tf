@@ -58,20 +58,6 @@ EOF
 
 }
 
-# Create a firewall rule
-resource "google_compute_firewall" "allow_ports_8080" {
-  name    = "allow-ports-8080"
-  network = "default" # Replace with your network name if not using the default network
-
-  # Specify the rules for allowing traffic
-  allow {
-    protocol = "tcp"
-    ports    = ["8080"]
-  }
-
-  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
-}
-
 # Output the assigned IP address
 output "frontend-ip-address" {
   value = google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip
