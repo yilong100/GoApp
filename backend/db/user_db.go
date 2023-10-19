@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"example/GoPractice/models"
 	"fmt"
-	"log"
 	"os"
 
 	_ "github.com/lib/pq"
@@ -13,7 +12,7 @@ import (
 
 func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 
-	filePath := "database-ip-address.txt"
+	filePath := "./db/database-ip-address.txt"
 	databaseIP := ""
 	// Open the file.
 	f, _ := os.Open(filePath)
@@ -22,8 +21,9 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 	// Loop over all lines in the file and print them.
 	for scanner.Scan() {
 		databaseIP = scanner.Text()
+		fmt.Print(databaseIP)
 	}
-	println(databaseIP)
+
 	host := databaseIP
 	port := 5432
 	user := "postgres"
@@ -37,14 +37,36 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 	// Open a database connection
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatal(err) //Exit the program if there's an error
+		fmt.Printf("ERROR 1: %s\n", err) //Exit the program if there's an error
 	}
 
-	// Ping the database to ensure the connection is working
-	err = db.Ping()
+	// // Ping the database to ensure the connection is working
+	// err = db.Ping()
+	// if err != nil {
+	// 	fmt.Printf("ERROR 2: %s\n", err)
+
+	// 	return db, err
+	// }
+
+	// Create a table named "users."
+	createTableSQL := `
+	CREATE TABLE IF NOT EXISTS users (
+		_id serial PRIMARY KEY,
+		id VARCHAR(50) NOT NULL,
+		name VARCHAR (50) NOT NULL,
+		age INTEGER NOT NULL,
+		dreamplacetolive VARCHAR(100) NOT NULL
+	);
+	`
+
+	_, err = db.Exec(createTableSQL)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("ERROR 3: %s\n", err)
+
+		return db, err
 	}
+
+	fmt.Println("Table 'users' created successfully.")
 
 	return db, nil
 }
