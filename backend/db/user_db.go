@@ -1,22 +1,34 @@
 package db
 
 import (
+	"bufio"
 	"database/sql"
 	"example/GoPractice/models"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq"
 )
 
 func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
-	const (
-		host     = "34.151.87.122"
-		port     = 5432
-		user     = "postgres"
-		password = "password"
-		dbname   = "users"
-	)
+
+	filePath := "database-ip-address.txt"
+	databaseIP := ""
+	// Open the file.
+	f, _ := os.Open(filePath)
+	// Create a new Scanner for the file.
+	scanner := bufio.NewScanner(f)
+	// Loop over all lines in the file and print them.
+	for scanner.Scan() {
+		databaseIP = scanner.Text()
+	}
+
+	host := databaseIP
+	port := 5432
+	user := "postgres"
+	password := "password"
+	dbname := "users"
 
 	// Create a connection string
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
