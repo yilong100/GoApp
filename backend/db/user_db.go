@@ -51,7 +51,6 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 	// Create a table named "users."
 	createTableSQL := `
 	CREATE TABLE IF NOT EXISTS users (
-		_id serial PRIMARY KEY,
 		id VARCHAR(50) NOT NULL,
 		name VARCHAR (50) NOT NULL,
 		age INTEGER NOT NULL,
