@@ -14,6 +14,16 @@ function PostForm(props) {
 
     useEffect(()=>{
         // Send a Get request to receive all users
+        getUsers();
+    }, [update])
+
+    useEffect(()=>{
+        // Send a Get request to receive all users
+        getUsers();
+    }, [])
+
+    const getUsers = () => {
+        // Send a Get request to receive all users
         Axios.get(url + "/users")
         .then(response => {
             // Log the response from the server to the console
@@ -22,7 +32,7 @@ function PostForm(props) {
         }).catch(e => {
             console.log(e)
         })
-    }, [update])
+    }
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({
