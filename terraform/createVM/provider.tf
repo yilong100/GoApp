@@ -34,7 +34,7 @@ resource "google_compute_firewall" "allow_ports_3000" {
 }
 
 # Create a firewall rule for backend
-resource "google_compute_firewall" "allow_ports_8080" {
+resource "google_compute_firewall" "allow_ports_8080s" {
   name    = "allow-ports-8080"
   network = "default" # Replace with your network name if not using the default network
 
@@ -44,7 +44,9 @@ resource "google_compute_firewall" "allow_ports_8080" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
+  source_ranges = ["${google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip}"]
+
+  depends_on = [google_compute_instance.frontend-vm-from-terraform]
 }
 
 # Create a firewall rule for database

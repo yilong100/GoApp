@@ -11,16 +11,16 @@ function PostForm(props) {
     const [url, setUrl] = useState("http://"+ apiUrl + ":8080")
     const [update, setUpdate] = useState(false)
 
-    // useEffect(()=>{
-    //     // Send a Get request to receive all users
-    //     Axios.get(url + "/users")
-    //     .then(response => {
-    //         // Log the response from the server to the console
-    //         console.log(response)
-    //     }).catch(e => {
-    //         console.log(e)
-    //     })
-    // }, [update])
+    useEffect(()=>{
+        // Send a Get request to receive all users
+        Axios.get(url + "/users")
+        .then(response => {
+            // Log the response from the server to the console
+            console.log(response)
+        }).catch(e => {
+            console.log(e)
+        })
+    }, [update])
 
     // Initialize a state variable 'data' using the useState hook
     const [data, setData] = useState({
