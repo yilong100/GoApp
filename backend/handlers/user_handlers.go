@@ -20,6 +20,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	postgresdb, err := db.ConnectToPostgresCloudServerAndDB()
 	if err != nil {
 		http.Error(w, "Failed to connect to Postgres", http.StatusBadGateway)
+		db.CloseConnection(postgresdb)
 		return
 	}
 
@@ -28,12 +29,14 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Failed to retrieve data from database", http.StatusBadGateway)
 		log.Println("Error:", err)
+		db.CloseConnection(postgresdb)
 		return
 	}
 	// Marshal the array to JSON
 	jsonResponse, err := json.Marshal(allData)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		db.CloseConnection(postgresdb)
 		return
 	}
 
@@ -42,6 +45,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	// Write the JSON response to the HTTP response writer
 	w.Write(jsonResponse)
+	db.CloseConnection(postgresdb)
 }
 
 // returns the user by id
@@ -116,6 +120,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	postgresdb, err := db.ConnectToPostgresCloudServerAndDB()
 	if err != nil {
 		http.Error(w, "Failed to connect to PostgresDB", http.StatusBadGateway)
+		db.CloseConnection(postgresdb)
 		return
 	}
 
@@ -124,7 +129,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Failed to append user to database", http.StatusBadGateway)
 		log.Println("Error:", err)
+		db.CloseConnection(postgresdb)
 		return
 	}
 
+	db.CloseConnection(postgresdb)
 }

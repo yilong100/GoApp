@@ -116,6 +116,12 @@ func InsertUserData(db *sql.DB, userToInsert *models.User) error {
 	return err
 }
 
+func CloseConnection(db *sql.DB) bool {
+	db.Close()
+
+	return true
+}
+
 // mongodb local connection, get, insert data
 
 // func ConnectToMongoDB() (*mongo.Client, error) {
