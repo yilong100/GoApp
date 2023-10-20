@@ -10,13 +10,15 @@ function PostForm(props) {
     // When Deployed, Change to VM's IP
     const [url, setUrl] = useState("http://"+ apiUrl + ":8080")
     const [update, setUpdate] = useState(false)
+    const [users, setUsers] = useState([])
 
     useEffect(()=>{
         // Send a Get request to receive all users
         Axios.get(url + "/users")
         .then(response => {
             // Log the response from the server to the console
-            console.log(response)
+            console.log(response.data)
+            setUsers(response.data)
         }).catch(e => {
             console.log(e)
         })
@@ -39,7 +41,6 @@ function PostForm(props) {
         //Update the 'data' state with the new data
         setData(newData)
         // Log the updated data to the console
-        console.log(newData) 
     }
 
     // Function to handle form submission
@@ -64,6 +65,7 @@ function PostForm(props) {
 
     // Render the form component
     return(
+        <>
         <form className='user-form' onSubmit={(e) => submit(e)}>
             <TextField id="ID" label="ID" variant="outlined" onChange={(e) => handle(e)}/>
             <TextField id="Name" label="Name" variant="outlined" onChange={(e) => handle(e)}/>
@@ -72,6 +74,8 @@ function PostForm(props) {
             <Button type="submit"  variant="outlined">Submit</Button>
             <p class="user-data"></p>
         </form>
+        <p>{users}</p>
+        </>
     )
 
 }
