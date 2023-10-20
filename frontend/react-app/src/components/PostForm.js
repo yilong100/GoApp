@@ -84,17 +84,26 @@ function PostForm(props) {
             <Button type="submit"  variant="outlined">Submit</Button>
             <p class="user-data"></p>
         </form>
-        {users.map((item, i) => 
-            {
-                <tr key={i}>
-                <td>{item.ID}</td>
-                <td>{item.Name}</td>
-                <td>{item.Age}</td>
-                <td>{item.DreamPlaceToLive}</td>
+        <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Dream Place to Live</th>
                 </tr>
-            }
-            )
-        }
+            </thead>
+            <tbody>
+                {users.map((item, i) => (
+                <tr key={i}>
+                    <td>{item.ID}</td>
+                    <td>{item.Name}</td>
+                    <td>{item.Age}</td>
+                    <td>{item.DreamPlaceToLive}</td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
     </>
     )
 }
