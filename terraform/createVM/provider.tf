@@ -44,7 +44,8 @@ resource "google_compute_firewall" "allow_ports_8080s" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["${google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip}"]
+  source_ranges = ["0.0.0.0/0"]
+  # source_ranges = ["${google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip}"]
 
   depends_on = [google_compute_instance.frontend-vm-from-terraform]
 }
