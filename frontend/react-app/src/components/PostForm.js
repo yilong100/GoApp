@@ -74,10 +74,18 @@ function PostForm(props) {
             <Button type="submit"  variant="outlined">Submit</Button>
             <p class="user-data"></p>
         </form>
-        <p>{users}</p>
-        </>
+        {users.map((item, i) => 
+            {
+                <tr key={i}>
+                <td>{item.ID}</td>
+                <td>{item.Name}</td>
+                <td>{item.Age}</td>
+                <td>{item.DreamPlaceToLive}</td>
+                </tr>
+            }
+            )
+        }
+    </>
     )
-
 }
-
 export default PostForm;
