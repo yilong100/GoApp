@@ -1,2 +1,2 @@
-const apiUrl = "34.151.103.132"
+const apiUrl = "34.87.213.133"
 export default apiUrl;
