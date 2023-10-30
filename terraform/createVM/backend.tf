@@ -4,6 +4,7 @@ resource "google_compute_instance" "backend-vm-from-terraform" {
   name         = "backend-vm-from-terraform"
   machine_type = "e2-medium"
   zone         = "australia-southeast1-a"
+  tags         = ["backend"]  # Apply the tag to the instance
 
   # Block that defines the boot disk (OS) for the VM
   boot_disk {

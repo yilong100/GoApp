@@ -4,6 +4,7 @@ resource "google_compute_instance" "frontend-vm-from-terraform" {
   name         = "frontend-vm-from-terraform"
   machine_type = "e2-medium"
   zone         = "australia-southeast1-a"
+  tags         = ["frontend"]  # Apply the tag to the instance
 
   # Block that defines the boot disk (OS) for the VM
   boot_disk {
@@ -21,7 +22,7 @@ resource "google_compute_instance" "frontend-vm-from-terraform" {
 
     // gives vm instance a public IP
     access_config {
-
+      
     }
   }
 
