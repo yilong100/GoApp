@@ -19,8 +19,13 @@ provider "google" {
   credentials = "./keys.json"            # Path to your service account credentials file
 }
 
+# Learn our public IP address
+data "http" "icanhazip" {
+   url = "http://icanhazip.com"
+}
+
 # Create a firewall rule for frontend
-resource "google_compute_firewall" "allow_ports_3000" {
+resource "google_compute_firewall" "allow_ports_3000s" {
   name    = "allow-ports-3000"
   network = "default" # Replace with your network name if not using the default network
 
@@ -30,11 +35,13 @@ resource "google_compute_firewall" "allow_ports_3000" {
     ports    = ["3000"]
   }
 
-  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
+  source_ranges = ["${chomp(data.http.icanhazip.body)}"] # Allow traffic from all IP addresses
+
+  depends_on = [data.http.icanhazip]
 }
 
 # Create a firewall rule for backend
-resource "google_compute_firewall" "allow_ports_8080s" {
+resource "google_compute_firewall" "allow_ports_8080" {
   name    = "allow-ports-8080"
   network = "default" # Replace with your network name if not using the default network
 
@@ -44,10 +51,7 @@ resource "google_compute_firewall" "allow_ports_8080s" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
-  # source_ranges = ["${google_compute_instance.frontend-vm-from-terraform.network_interface[0].access_config[0].nat_ip}"]
-
-  depends_on = [google_compute_instance.frontend-vm-from-terraform]
+  source_ranges = ["10.152.0.0/20"] # Allow traffic from all IP addresses
 }
 
 # Create a firewall rule for database
@@ -61,25 +65,11 @@ resource "google_compute_firewall" "allow_ports_5432" {
     ports    = ["5432"]
   }
 
-  source_ranges = ["0.0.0.0/0"] # Allow traffic from all IP addresses
+  source_ranges = ["10.152.0.0/20"]
+
 }
 
-# resource "null_resource" "push_to_git" {
-#   triggers = {
-#     instance_id = google_compute_instance.frontend-vm-from-terraform.id
-#   }
+output "public_ip" {
+  value = "${chomp(data.http.icanhazip.body)}"
+}
 
-#   depends_on = [null_resource.save_frontend_ip_to_file]
-
-#   provisioner "local-exec" {
-#     command = "git add ."
-#   }
-
-#   provisioner "local-exec" {
-#     command = "git commit -m 'IP updated'"
-#   }
-
-#   provisioner "local-exec" {
-#     command = "git push"
-#   }
-# }

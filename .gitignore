@@ -1,2 +1,2 @@
-/terraform/*
 terraform/createVM/.terraform.lock.hcl
+/terraform/createVM/keys.json
