@@ -20,7 +20,7 @@ Once Connected, enter the password you assigned to the user
 
 Now to create the database type:
 
-    CREATE DATABASE users
+    CREATE DATABASE users;
 
 Check that database is created by typing:
 
