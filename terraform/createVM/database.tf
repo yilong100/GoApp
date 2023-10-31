@@ -35,6 +35,16 @@ resource "google_sql_user" "postgres-user" {
     password = "postgres"
 }
 
+resource "google_sql_database" "database" {
+    
+    depends_on = [google_sql_database_instance.postgres_goApp]
+
+    project         = "impactful-post-402223"
+    name            = "users"
+    instance        = google_sql_database_instance.postgres_goApp.name
+    deletion_policy = "ABANDON"
+}
+
 # Output the assigned IP address
 output "database-ip-address" {
   value = google_sql_database_instance.postgres_goApp.ip_address[0].ip_address

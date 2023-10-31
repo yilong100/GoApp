@@ -54,6 +54,9 @@ if [ ! -f /var/run/my_script_ran_before ]; then
 fi
 EOF
   # allow_stopping_for_update = true # This line is commented out but can be used to allow VM stopping during updates
+
+  depends_on = [google_sql_database_instance.postgres_goApp]
+
 }
 
 # Output the assigned IP address
