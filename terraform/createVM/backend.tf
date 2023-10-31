@@ -33,12 +33,6 @@ if [ ! -f /var/run/my_script_ran_before ]; then
     # Mark that the script has run before
     sudo touch /var/run/my_script_ran_before
 
-    # Install the Ops Agent
-    curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
-    sudo bash add-google-cloud-ops-agent-repo.sh --also-install
-    sudo apt-get update
-    sudo apt-get -y install ops-agent
-
     # Execute the desired script
     cd /
     wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
@@ -55,12 +49,14 @@ if [ ! -f /var/run/my_script_ran_before ]; then
     git clone https://github.com/yilong100/GoApp.git
     cd /
     cd GoApp/backend/
-    go mod init github.com/yilong100/GoApp.git
     go build
     ./GoPractice &
 fi
 EOF
   # allow_stopping_for_update = true # This line is commented out but can be used to allow VM stopping during updates
+
+  depends_on = [google_sql_database_instance.postgres_goApp]
+
 }
 
 # Output the assigned IP address

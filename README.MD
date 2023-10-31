@@ -19,7 +19,11 @@ terraform apply -target=google_sql_database_instance.postgres_goApp
 
 5. Now to create the database type:
 
+<<<<<<< HEAD
    CREATE DATABASE users;
+=======
+    CREATE DATABASE users;
+>>>>>>> 4c196d3349118033e29e1b3860ffa5bcd06a3799
 
 6. Check that database is created by typing:
 

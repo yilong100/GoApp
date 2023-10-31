@@ -51,7 +51,7 @@ resource "google_compute_firewall" "allow_ports_8080" {
     ports    = ["8080"]
   }
 
-  source_ranges = ["10.152.0.0/20"] # Allow traffic from all IP addresses
+  source_ranges = ["10.152.0.0/20", "${chomp(data.http.icanhazip.body)}"] # Allow traffic from all IP addresses
 }
 
 # Create a firewall rule for database
@@ -65,7 +65,7 @@ resource "google_compute_firewall" "allow_ports_5432" {
     ports    = ["5432"]
   }
 
-  source_ranges = ["10.152.0.0/20"]
+  source_ranges = ["10.152.0.0/20", "${chomp(data.http.icanhazip.body)}"]
 
 }
 
