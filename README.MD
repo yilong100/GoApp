@@ -1,34 +1,33 @@
-To start Postgres instance go to terraform/createVM folder and run:
+1. To start Postgres instance go to terraform/createVM folder and run:
 
 ```
 terraform apply -target=google_sql_database_instance.postgres_goApp
 ```
 
-Once the instance is fully running go to:
+2. Once the instance is fully running go to:
 
-    GCP Console -> SQL -> go-app-db -> Users (on the sidebar) -> 
-    Change Password for postgres user
+   GCP Console -> SQL -> go-app-db -> Users (on the sidebar) ->
+   Change Password for postgres user
 
-Go back to Overview, select 'Open Cloud Shell'
+3. Go back to Overview, select 'Open Cloud Shell'
 
 ![Alt text](image.png)
 
-
-Once Connected, enter the password you assigned to the user
+4. Once Connected, enter the password you assigned to the user
 
 ![Alt text](image-1.png)
 
-Now to create the database type:
+5. Now to create the database type:
 
-    CREATE DATABASE users
+   CREATE DATABASE users;
 
-Check that database is created by typing:
+6. Check that database is created by typing:
 
-    \l
+   \l
 
 And use arrow keys to scroll down.
 
-Go to Connections:
+7. Go to Connections:
 
 ![Alt text](image-2.png)
 
@@ -36,6 +35,6 @@ GO to Networking, scroll down and ADD A NETWORK with the following settings (or 
 
 ![Alt text](image-3.png)
 
-Now you can deploy the rest using:
+8. Now you can deploy the rest using:
 
-    terraform apply
+   terraform apply
