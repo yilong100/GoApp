@@ -17,13 +17,22 @@ resource "google_sql_database_instance" "postgres_goApp" {
 
 }
 
-resource "google_sql_user" "user" {
+resource "google_sql_user" "goapp-user" {
 
     depends_on = [google_sql_database_instance.postgres_goApp]
 
     name     = "goApp"
     instance = google_sql_database_instance.postgres_goApp.name
     password = "goApp1234"
+}
+
+resource "google_sql_user" "postgres-user" {
+
+    depends_on = [google_sql_database_instance.postgres_goApp]
+
+    name     = "postgres"
+    instance = google_sql_database_instance.postgres_goApp.name
+    password = "postgres"
 }
 
 # Output the assigned IP address
