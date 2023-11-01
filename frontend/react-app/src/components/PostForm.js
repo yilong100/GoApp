@@ -94,14 +94,17 @@ function PostForm(props) {
                 </tr>
             </thead>
             <tbody>
-                {users.map((item, i) => (
+                {users != null ? users.map((item, i) => (
                 <tr key={i}>
                     <td>{item.ID}</td>
                     <td>{item.Name}</td>
                     <td>{item.Age}</td>
                     <td>{item.DreamPlaceToLive}</td>
                 </tr>
-                ))}
+                ))
+                :
+                <></>
+                }
             </tbody>
         </table>
     </>
