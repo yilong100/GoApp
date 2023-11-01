@@ -28,21 +28,21 @@ resource "google_sql_user" "goapp-user" {
 
 resource "google_sql_user" "postgres-user" {
 
-    depends_on = [google_sql_database_instance.postgres_goApp]
+  depends_on = [google_sql_database_instance.postgres_goApp]
 
-    name     = "postgres"
-    instance = google_sql_database_instance.postgres_goApp.name
-    password = "postgres"
+  name     = "postgres"
+  instance = google_sql_database_instance.postgres_goApp.name
+  password = "postgres"
 }
 
 resource "google_sql_database" "database" {
-    
-    depends_on = [google_sql_database_instance.postgres_goApp]
 
-    project         = "impactful-post-402223"
-    name            = "users"
-    instance        = google_sql_database_instance.postgres_goApp.name
-    deletion_policy = "ABANDON"
+  depends_on = [google_sql_database_instance.postgres_goApp]
+
+  project         = "rapid-chassis-402302"
+  name            = "users"
+  instance        = google_sql_database_instance.postgres_goApp.name
+  deletion_policy = "ABANDON"
 }
 
 # Output the assigned IP address
