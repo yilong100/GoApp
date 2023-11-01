@@ -5,15 +5,6 @@ resource "google_sql_database_instance" "postgres_goApp" {
   settings {
     tier = "db-f1-micro"
 
-<<<<<<< HEAD
-    # ip_configuration {
-    #     authorized_networks {
-    #         name            = "my-subnet"
-    #         value           = "10.152.0.0/20"
-    #     }
-    # }
-  }
-=======
         ip_configuration {
             authorized_networks {
                 name            = "my-subnet"
@@ -21,7 +12,6 @@ resource "google_sql_database_instance" "postgres_goApp" {
             }
         }
     }
->>>>>>> 9a21cf227b04004be6d3b78ce915ab06032fa025
 
   deletion_protection = false
 
