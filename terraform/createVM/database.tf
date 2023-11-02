@@ -39,7 +39,7 @@ resource "google_sql_database" "database" {
 
   depends_on = [google_sql_database_instance.postgres_goApp]
 
-  project         = "rapid-chassis-402302"
+  project         = "impactful-post-402223"
   name            = "users"
   instance        = google_sql_database_instance.postgres_goApp.name
   deletion_policy = "ABANDON"
