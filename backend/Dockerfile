@@ -1,27 +1,26 @@
 # syntax=docker/dockerfile:1
 
+# Set the base image to the official Golang 1.21 image
 FROM golang:1.21
 
-# Set destination for COPY
+# Set the working directory inside the container to /app
 WORKDIR /app
 
-# Download Go modules
+# Copy the go.mod and go.sum files to the container (dependency management)
 COPY go.mod go.sum ./
+
+# Download the Go module dependencies using 'go mod download'
 RUN go mod download
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
+# Copy all the files from the current directory into the container
 COPY . .
 
-# Build
+# Build the Go application with CGO disabled for a static binary
+# and target the Linux OS, then place the binary in /docker-goapp
 RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-goapp
 
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/engine/reference/builder/#expose
+# Expose port 8080 to allow external connections
 EXPOSE 8080
 
-# Run
+# Define the command to run the application when the container starts
 CMD ["/docker-goapp"]
