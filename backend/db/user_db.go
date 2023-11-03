@@ -65,8 +65,6 @@ func ConnectToPostgresCloudServerAndDB() (*sql.DB, error) {
 		return db, err
 	}
 
-	fmt.Println("Table 'users' created successfully.")
-
 	return db, nil
 }
 
@@ -113,6 +111,20 @@ func InsertUserData(db *sql.DB, userToInsert *models.User) error {
 
 	// Execute the prepared statement with the provided data
 	_, err = stmt.Exec(id, name, age, dreamplacetolive)
+	return err
+}
+
+func DeleteUserData(db *sql.DB, id string) error {
+
+	// Create the SQL statement with placeholders for the data to be inserted
+	stmt, err := db.Prepare("DELETE FROM users WHERE id=$1")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close() // Close the prepared statement when done
+
+	// Execute the prepared statement with the provided data
+	_, err = stmt.Exec(id)
 	return err
 }
 

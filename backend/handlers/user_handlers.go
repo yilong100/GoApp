@@ -135,3 +135,45 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	db.CloseConnection(postgresdb)
 }
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+
+	// extracts id url parameter
+	params := mux.Vars(r)
+	id := params["id"]
+
+	// Process the request
+	response := models.ResponseObject{
+		Message: "Removed User",
+	}
+
+	//Allow CORS here By * or specific origin
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	// Encode the response object to JSON and write it to the response writer
+	w.Header().Set("Content-Type", "application/json")
+	encoder := json.NewEncoder(w)
+	if err := encoder.Encode(response); err != nil {
+		http.Error(w, "Failed to encode JSON response", http.StatusInternalServerError)
+		return
+	}
+
+	// Establish a MongoDB connection
+	postgresdb, err := db.ConnectToPostgresCloudServerAndDB()
+	if err != nil {
+		http.Error(w, "Failed to connect to PostgresDB", http.StatusBadGateway)
+		db.CloseConnection(postgresdb)
+		return
+	}
+
+	// Insert user data using the established connection
+	err = db.DeleteUserData(postgresdb, id)
+	if err != nil {
+		http.Error(w, "Failed to append user to database", http.StatusBadGateway)
+		log.Println("Error:", err)
+		db.CloseConnection(postgresdb)
+		return
+	}
+
+	db.CloseConnection(postgresdb)
+}

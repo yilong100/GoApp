@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Button, TextField } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
 import apiUrl from "../backend-ip-address.js"
 
 // Define a functional component called PostForm
@@ -73,6 +73,21 @@ function PostForm(props) {
         document.querySelector(".user-data").innerHTML = `Welcome ${data.Name}!`
     }
 
+    // Function to handle form submission
+    function deleteUser(e, data) {
+        e.preventDefault(); // Prevent the default form submission behaviour
+
+        // Send a POST request to the specified URL with the 'data' object
+        Axios.get(url + "/deleteUser/" + data.ID)
+        .then(response => {
+            // Log the response from the server to the console
+            setUpdate(!update)
+            console.log(response)
+        })
+
+        document.querySelector(".user-data").innerHTML = `Removed ${data.Name}!`
+    }
+
     // Render the form component
     return(
         <>
@@ -84,29 +99,32 @@ function PostForm(props) {
             <Button type="submit"  variant="outlined">Submit</Button>
             <p class="user-data"></p>
         </form>
-        <table>
-            <thead>
-                <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Dream Place to Live</th>
-                </tr>
-            </thead>
-            <tbody>
-                {users != null ? users.map((item, i) => (
-                <tr key={i}>
-                    <td>{item.ID}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Age}</td>
-                    <td>{item.DreamPlaceToLive}</td>
-                </tr>
-                ))
-                :
-                <></>
-                }
-            </tbody>
-        </table>
+        <TableContainer>
+            <Table sx={{ minWidth: 650, maxWidth: 800, margin: 'auto' }} size="small" aria-label="Entries">
+                <TableHead>
+                    <TableRow>
+                    <TableCell align="center">ID</TableCell>
+                    <TableCell align="center">Name</TableCell>
+                    <TableCell align="center">Age</TableCell>
+                    <TableCell align="center">Dream Place to Live</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {users != null ? users.sort((a, b) => a.ID - b.ID).map((item, i) => (
+                    <TableRow key={i}>
+                        <TableCell align="center">{item.ID}</TableCell>
+                        <TableCell align="center">{item.Name}</TableCell>
+                        <TableCell align="center">{item.Age}</TableCell>
+                        <TableCell align="center">{item.DreamPlaceToLive}</TableCell>
+                        <Button variant="outlined" color='error' onClick={(e) => deleteUser(e ,item)}>Delete</Button>
+                    </TableRow>
+                    ))
+                    :
+                    <></>
+                    }
+                </TableBody>
+            </Table>
+        </TableContainer>
     </>
     )
 }
